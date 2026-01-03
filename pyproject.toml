@@ -1,0 +1,73 @@
+# orderlab -- branch PY-168
+# Build backend : poetry-core 2.4.1
+# Package manager: conda (solver-resolved)
+# Interpreter    : CPython 3.12.11
+#
+# poetry-core 2.4.1 -- the current latest release. Being on the 2.x line, it emits PEP 621 [project] rather than [tool.poetry], which is what makes the poetry-core + uv pairing resolvable; the 1.x releases the older families were held to could not express that table and left two branches of the grid unlockable.
+# conda can create a python=3.9.23 environment from conda-forge, but conda.anaconda.org and repo.anaconda.com are 403 at this build host's egress proxy, so no solved lock could be produced here. environment.yml is complete and solves on the operator's machine.
+
+[build-system]
+requires = ["poetry-core==2.4.1"]
+build-backend = "poetry.core.masonry.api"
+
+# poetry-core 2.4.1 is from the 2.x line, which emits PEP 621 [project]
+# instead of [tool.poetry]. Every earlier family in this corpus was
+# stuck on poetry-core 1.x, where the absence of [project] is what
+# made a poetry-core + uv branch impossible to lock. [tool.poetry]
+# survives here only for the packages table, which PEP 621 has no
+# equivalent for.
+[project]
+name = "orderlab"
+version = "1.0.0"
+description = "Order pricing domain used as a white-box tool-evaluation fixture"
+readme = "README.md"
+requires-python = "==3.12.11"
+license = { text = "MIT" }
+authors = [{ name = "Prajith Kumaravel", email = "prajith.k19022003@gmail.com" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "requests==2.31.0",
+    "Jinja2==3.1.3",
+    "urllib3==2.2.2",
+    "cryptography==42.0.0",
+    "paramiko==2.10.1",
+    "six==1.17.0"
+]
+
+[project.scripts]
+orderlab = "orderlab.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "crosshair-tool==0.0.110 ; python_version >= '3.8'",
+    "coverage==7.16.0 ; python_version >= '3.10'",
+    "pymcdc==0.2.6 ; python_version >= '3.10'",
+    "radon==6.0.1",
+    "lizard==1.24.0",
+    "pytest-testmon==2.2.0 ; python_version >= '3.10'",
+    "pylint==4.0.8 ; python_version >= '3.10'",
+    "semgrep==1.176.0 ; python_version >= '3.10'",
+    "bandit==1.9.4 ; python_version >= '3.10'",
+    "pip-audit==2.10.1 ; python_version >= '3.10'",
+    "cosmic-ray==8.7.0 ; python_version >= '3.9'",
+    "beniget==0.5.0 ; python_version >= '3.6'",
+    "gast==0.7.0 ; python_version >= '3.6'",
+    "pydriller==2.10 ; python_version >= '3.5'",
+    "ruff==0.16.6 ; python_version >= '3.7'",
+    "complexipy==8.0.0 ; python_version >= '3.8'",
+    "slipcover==1.1.0 ; python_version >= '3.9'",
+    "mutmut==3.7.0 ; python_version >= '3.10'",
+    "diff-cover==10.5.1 ; python_version >= '3.10'",
+    "astroid==4.0.4 ; python_version >= '3.10'",
+    "pyan3==2.8.1 ; python_version >= '3.10'",
+    "vulture==2.16 ; python_version >= '3.9'",
+    "dulwich==1.2.14 ; python_version >= '3.10'",
+]
+
+[tool.poetry]
+packages = [{ include = "orderlab", from = "packages/domain/src" }]
