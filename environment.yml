@@ -1,0 +1,23 @@
+# conda environment for branch PY-168.
+#
+# conda can create a python=3.9.23 environment from conda-forge, but
+# conda.anaconda.org and repo.anaconda.com are both 403 at the egress
+# proxy of the host this corpus was built on, so no solved lock could
+# be produced here. This file is complete and solves on a machine with
+# access. Run:
+#
+#   conda env create -f environment.yml
+#   conda activate orderlab-py-168
+#   conda list --explicit > conda-lock.txt
+#
+# and commit conda-lock.txt to close the gap.
+name: orderlab-py-168
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python==3.12.11
+  - pip==26.2.1
+  - pip:
+      - -r requirements-runtime.txt
+      - -r requirements-dev.txt
