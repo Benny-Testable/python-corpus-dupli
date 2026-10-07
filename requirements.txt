@@ -1,0 +1,15 @@
+# Platform coverage-py bootstrap for branch PY-168 (PY_V312_POETRY_CONDA_MICRO).
+#
+# wb-cpu-worker coverage_py_runner prefers this file over `pip install .` when
+# both requirements.txt and pyproject.toml exist. That avoids failing the root
+# package install when the worker interpreter is Python 3.12.x but not exactly
+# the branch pin 3.12.11 (requires-python = "==3.12.11" in pyproject.toml).
+#
+# orderlab is imported via tests/conftest.py (packages/domain/src on sys.path);
+# runtime pins match requirements-runtime.txt. Tool pins here mirror the
+# coverage and pymcdc entries in requirements-dev.txt for this interpreter.
+-r requirements-runtime.txt
+pytest==9.1.1
+pytest-cov>=5.0.0,<7
+coverage==7.16.0 ; python_version >= "3.10"
+pymcdc==0.2.6 ; python_version >= "3.10"

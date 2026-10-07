@@ -12,6 +12,7 @@ PKG="orderlab"
 
 require_python_floor "pymcdc" ">=3.10" "pymcdc==0.2.6"
 require_import "pymcdc" "pymcdc" "pymcdc==0.2.6"
+require_smoke "pymcdc" "pymcdc==0.2.6" "$PYBIN" -m pymcdc --help
 
 
 mkdir -p "$ROOT/reports"
