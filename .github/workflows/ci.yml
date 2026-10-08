@@ -63,6 +63,33 @@ jobs:
       - name: Run every wired tool
         run: PYTHON=.venv/bin/python .venv/bin/python tools/tool_integration.py --run
 
+      - name: Write CICD results index
+        if: always()
+        run: |
+          .venv/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          reports = Path("reports")
+          files = []
+          if reports.is_dir():
+              for p in sorted(reports.rglob("*")):
+                  if p.is_file():
+                      files.append(
+                          {"path": p.as_posix(), "bytes": p.stat().st_size}
+                      )
+          index = {
+              "branch": "PY_V312_POETRY_CONDA_MICRO",
+              "branch_id": "PY-168",
+              "repository": "Nandhini-Testable/python-corpus-dupli",
+              "report_count": len(files),
+              "reports": files,
+          }
+          reports.mkdir(exist_ok=True)
+          out = reports / "cicd_results_index.json"
+          out.write_text(json.dumps(index, indent=2), encoding="utf-8")
+          print("Wrote", out, "with", len(files), "report file(s)")
+          PY
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

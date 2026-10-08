@@ -138,7 +138,7 @@ python -c "from pricing_service import quote; print(quote('gold', 600, 'retail',
 
 ```
 make test         # pytest 9.1.1
-make check        # Tool Triggering (Synthetic Data)/full_check.py -- cross-file consistency audit
+make check        # tools/full_check.py -- cross-file consistency audit
 ```
 
 pytest is pinned at 9.1.1, which is its current latest
@@ -156,7 +156,7 @@ python-corpus/  (PY_V312_POETRY_CONDA_MICRO)
 |-- packages/  (23 files)
 |-- services/  (6 files)
 |-- tests/  (7 files)
-|-- Tool Triggering (Synthetic Data)/  (76 files)
+|-- tools/  (wired tool runners + integration)
 |-- .editorconfig
 |-- .gitignore
 |-- .python-version
@@ -189,7 +189,7 @@ differently is telling you about its source model, not about the code.
 ## Tool test-data folders
 
 Three sibling folders sit at the repo root, alongside this branch's own
-`Tool Triggering (Synthetic Data)/` (above).
+`tools/` (above).
 
 ### `Tool Triggering (Tool Github Test data)/`
 Each of the 28 tool subfolders is that tool's own real upstream test suite,
@@ -227,9 +227,9 @@ floor, its measured status on this interpreter and what a working run should
 find. Run one tool directly, or all of them:
 
 ```
-bash "Tool Triggering (Synthetic Data)/radon/run_radon.sh"
-python "Tool Triggering (Synthetic Data)/tool_integration.py" --run
-python "Tool Triggering (Synthetic Data)/tool_integration.py" --verify
+bash tools/radon/run_radon.sh
+python tools/tool_integration.py --run
+python tools/tool_integration.py --verify
 ```
 
 `--run` distinguishes three outcomes: a tool that ran, a tool that skipped for
