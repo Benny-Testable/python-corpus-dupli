@@ -19,3 +19,14 @@ def test_light_parcel_takes_the_standard_lane():
 
 def test_parcels_with_no_weight_are_skipped():
     assert route_parcels([{"id": 4, "region": "east"}], ["east"]) == []
+
+
+def test_lane_counts_totals_each_lane():
+    from orderlab.analysis.lane_summary import lane_counts
+
+    parcels = [
+        {"id": 1, "weight": 3, "region": "east", "fragile": True},
+        {"id": 2, "weight": 5, "region": "east"},
+        {"id": 3, "weight": 6, "region": "east"},
+    ]
+    assert lane_counts(parcels, ["east"]) == {"careful": 1, "standard": 2}
