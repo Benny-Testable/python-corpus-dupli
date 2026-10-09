@@ -5,6 +5,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../.." && pwd)"
 # shellcheck source=/dev/null
+# shellcheck source=/dev/null
 . "$ROOT/tools/_skip.sh"
 # shellcheck source=/dev/null
 # shellcheck source=/dev/null# shellcheck source=/dev/null
