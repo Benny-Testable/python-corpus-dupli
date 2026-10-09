@@ -15,3 +15,7 @@ package-dir = {"" = "src"}
 name = "order_service"
 package = "order_service"
 description = "Applies the domain pricing pipeline"
+
+[tool.member.license]
+spdx = "MIT"
+file = "LICENSE"

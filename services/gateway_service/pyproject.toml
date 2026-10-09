@@ -15,3 +15,7 @@ package-dir = {"" = "src"}
 name = "gateway_service"
 package = "gateway_service"
 description = "HTTP edge that accepts order books"
+
+[tool.member.license]
+spdx = "MIT"
+file = "LICENSE"

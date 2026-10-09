@@ -338,5 +338,9 @@
     "why": "The domain layer is byte-identical across every branch of every family and is therefore written to the Python 3.6 language subset. It can never contain syntax newer than that. language/version_features.py carries the syntax THIS interpreter introduced -- PEP 695 type parameters, PEP 698 @override, PEP 701 f-strings -- so the parser-based tools have a target the domain cannot provide. It is excluded from the byte-identical invariant by design.",
     "introducedBy": "the 3.12 family",
     "measured": "beniget's PEP 695 degradation; see toolsActiveDegraded"
+  },
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
   }
 }

@@ -15,3 +15,7 @@ package-dir = {"" = "src"}
 name = "pricing_service"
 package = "pricing_service"
 description = "Owns the tier and volume rule tables"
+
+[tool.member.license]
+spdx = "MIT"
+file = "LICENSE"

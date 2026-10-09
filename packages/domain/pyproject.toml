@@ -15,3 +15,7 @@ package-dir = {"" = "src"}
 name = "domain"
 package = "orderlab"
 description = "Shared workspace package"
+
+[tool.member.license]
+spdx = "MIT"
+file = "LICENSE"
