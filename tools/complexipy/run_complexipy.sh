@@ -7,7 +7,9 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 # shellcheck source=/dev/null
 . "$ROOT/tools/_skip.sh"
 # shellcheck source=/dev/null
+# shellcheck source=/dev/null# shellcheck source=/dev/null
 # shellcheck source=/dev/null
+
 SRC="packages/domain/src"
 PKG="orderlab"
 
