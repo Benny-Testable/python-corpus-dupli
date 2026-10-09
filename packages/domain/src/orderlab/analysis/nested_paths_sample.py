@@ -9,7 +9,10 @@ leaves others, so a working tool reports a share between 0 and 100.
 
 
 def route_parcels(parcels, regions, express_only=False):
-    """Pick a lane per parcel. Deliberately nested rather than flattened."""
+    """Pick a lane per parcel. Deliberately nested rather than flattened.
+
+    Returns a list of ``(lane, parcel id)`` pairs, in parcel order.
+    """
     lanes = []
     for parcel in parcels:                                  # depth 1
         if parcel.get("weight", 0) > 0:                     # depth 2
