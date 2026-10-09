@@ -1,0 +1,14 @@
+# Planted IaC fixture: privileged container, host-wide port binding, inline secret.
+services:
+  gateway_service:
+    build: ./services/gateway_service
+    ports:
+      - "0.0.0.0:8000:8000"
+    privileged: true
+    environment:
+      DB_PASSWORD: hunter2
+    depends_on: [order_service, pricing_service]
+  order_service:
+    build: ./services/order_service
+  pricing_service:
+    build: ./services/pricing_service

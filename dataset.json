@@ -62,7 +62,14 @@
       "urllib3==2.2.2": 12,
       "cryptography==42.0.0": 15,
       "paramiko==2.10.1": 4
-    }
+    },
+    "iac": [
+      "services/gateway_service/Dockerfile",
+      "services/order_service/Dockerfile",
+      "services/pricing_service/Dockerfile",
+      "docker-compose.yml",
+      "infra/terraform/main.tf"
+    ]
   },
   "toolsActiveDetail": [
     {
