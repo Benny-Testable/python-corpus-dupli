@@ -9,7 +9,9 @@ from typing import Dict, Iterable, List, Optional
 class OrderLineError(ValueError):
     """Raised when a line cannot be coerced into a valid OrderLine."""
 
-
+class OrderLineError(ValueError):
+    """Raised when a line cannot be coerced into a valid OrderLine."""
+    
 class OrderLine(object):
     """A single priced line on an order."""
 
