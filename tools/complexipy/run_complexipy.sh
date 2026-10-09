@@ -9,6 +9,9 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 # shellcheck source=/dev/null
 # shellcheck source=/dev/null# shellcheck source=/dev/null
 # shellcheck source=/dev/null
+# shellcheck source=/dev/null
+# shellcheck source=/dev/null# shellcheck source=/dev/null
+# shellcheck source=/dev/nul
 
 SRC="packages/domain/src"
 PKG="orderlab"
