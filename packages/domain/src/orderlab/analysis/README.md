@@ -12,6 +12,7 @@ whatever its exit code said.
 | `taint_fixture.py` | Opengrep taint mode, Semgrep | four flows from untrusted input to a dangerous sink |
 | `dead_code.py` | vulture, pylint | three unreachable definitions and one unused constant |
 | `call_graph_sample.py` | pyan3 + astroid, Beniget | a five-deep call chain and one recursive cycle |
+| `nested_paths_sample.py` | coverage.py nested-condition-path measure | decisions nested four and five deep, only some of them taken by `tests/check_nested_paths_sample.py` |
 
 The duplication fixture is not here: it is the
 `retail_order_processor.py` / `wholesale_order_processor.py` pair in
