@@ -35,3 +35,9 @@ def test_combined_below_the_cap_is_additive(rules):
 def test_describe_mentions_every_active_component(rules):
     text = rules.describe("gold", 600, "SPRING10")
     assert "tier=" in text and "volume=" in text and "promo=" in text
+
+
+def test_is_capped_flags_discounts_over_the_cap(rules):
+    assert rules.is_capped("gold", 5000, "LOYAL15") is True
+    assert rules.is_capped("standard", 0) is False
+    assert rules.is_capped("gold", 100) is False

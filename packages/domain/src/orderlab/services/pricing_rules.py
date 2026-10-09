@@ -41,6 +41,12 @@ class PricingRules(object):
         combined += self.promo_discount(promo_code)
         return round(combined if combined <= self.max_combined else self.max_combined, 4)
 
+    def is_capped(self, tier: str, units: int, promo_code: Optional[str] = None) -> bool:
+        """True when the uncapped discount would exceed the combined cap."""
+        raw = self.tier_discount(tier) + self.volume_bonus(units)
+        raw += self.promo_discount(promo_code)
+        return raw > self.max_combined
+
     def describe(self, tier: str, units: int, promo_code: Optional[str] = None) -> str:
         parts = ["tier={0:.2%}".format(self.tier_discount(tier)),
                  "volume={0:.2%}".format(self.volume_bonus(units))]
