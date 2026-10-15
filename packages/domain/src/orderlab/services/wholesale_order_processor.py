@@ -19,7 +19,7 @@ class WholesaleOrderProcessor(object):
         self._revenue = 0.0
 
     def accepts(self, order: OrderRecord) -> bool:
-        if order.channel != CHANNEL:
+        if (order.channel or "").lower() != CHANNEL:
             return False
         if not order.lines:
             return False
