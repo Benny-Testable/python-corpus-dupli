@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 SRC = os.path.join(ROOT, *"packages/domain/src".split("/"))
 PKG = "orderlab"
 
