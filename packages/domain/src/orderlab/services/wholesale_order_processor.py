@@ -31,7 +31,7 @@ class WholesaleOrderProcessor(object):
             return {"order_id": order.order_id, "accepted": 0.0, "total": 0.0}
         gross = order.gross
         rate = self.rules.combined(order.tier, order.units, order.promo_code)
-        discount = round(gross * rate, 2)
+        discount = min(round(gross * rate, 2), gross)
         net = round(gross - discount, 2)
         tax, total = self.taxes.apply(net, order.channel, order.region)
         self._accepted += 1
