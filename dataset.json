@@ -69,7 +69,13 @@
       "services/pricing_service/Dockerfile",
       "docker-compose.yml",
       "infra/terraform/main.tf"
-    ]
+    ],
+    "accessControl": "packages/domain/src/orderlab/analysis/access_control_fixture.py",
+    "sensitiveFlow": "packages/domain/src/orderlab/analysis/sensitive_flow_fixture.py",
+    "entryPoints": "packages/domain/src/orderlab/analysis/entry_points_fixture.py",
+    "securityRules": "tools/semgrep/sast-evidence-rules.yaml",
+    "securityWorkflow": ".github/workflows/security.yml",
+    "securityPolicy": "SECURITY.md"
   },
   "toolsActiveDetail": [
     {

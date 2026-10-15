@@ -1,0 +1,68 @@
+# Rules for the access-control, sensitive-flow and entry-point fixtures in
+# packages/domain/src/orderlab/analysis/. Kept apart from rules.yaml and
+# taint-rules.yaml so those two keep their 12-rule count.
+rules:
+  - id: orderlab-missing-authorization
+    patterns:
+      - pattern-either:
+          - pattern: $C.execute(...)
+          - pattern: os.remove(...)
+          - pattern: os.unlink(...)
+          - pattern: open(..., "w", ...)
+      - pattern-inside: |
+          def $F(...):
+            ...
+      - pattern-not-inside: |
+          def $F(...):
+            ...
+            authorize(...)
+            ...
+    paths:
+      include:
+        - "**/analysis/access_control_fixture.py"
+    message: sensitive operation with no authorize() call earlier in the function
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-862"
+
+  - id: orderlab-taint-secret-to-output
+    mode: taint
+    pattern-sources:
+      - patterns:
+          - pattern-either:
+              - pattern: os.environ.get("$K", ...)
+              - pattern: os.environ["$K"]
+              - pattern: os.getenv("$K", ...)
+          - metavariable-regex:
+              metavariable: $K
+              regex: '(?i).*(secret|passw|token|api.?key|credential).*'
+    pattern-sanitizers:
+      - pattern: redact(...)
+    pattern-sinks:
+      - pattern: print(...)
+      - pattern: logging.$F(...)
+      - pattern: $L.info(...)
+      - pattern: $L.warning(...)
+      - pattern: $L.error(...)
+      - pattern: $H.write(...)
+    message: a secret from the environment reaches an output sink
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-200"
+
+  - id: orderlab-taint-request-to-sql
+    mode: taint
+    pattern-sources:
+      - pattern: $R.args[...]
+      - pattern: $R.args.get(...)
+    pattern-sanitizers:
+      - pattern: int(...)
+    pattern-sinks:
+      - pattern: $C.execute($QUERY, ...)
+    message: a request parameter reaches an SQL string
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-89"

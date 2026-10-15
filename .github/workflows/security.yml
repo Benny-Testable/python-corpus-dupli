@@ -1,0 +1,43 @@
+# Security scans for PY-168: static analysis (bandit, semgrep) and dependency
+# audit (pip-audit). The corpus plants findings, so each scan is allowed to
+# report them; the job keeps the reports as artifacts instead of failing.
+# Triggered by pull requests and by hand, not by every push.
+name: PY-168 security
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install scanners
+        run: python -m pip install bandit==1.9.4 semgrep==1.176.0 pip-audit==2.10.1
+
+      - name: bandit
+        run: |
+          mkdir -p reports
+          bandit -r packages services tools language -f json -o reports/bandit.json || true
+
+      - name: semgrep
+        run: |
+          semgrep --metrics off --dataflow-traces --json -o reports/semgrep.json \
+            --config tools/semgrep/rules.yaml \
+            --config tools/semgrep/taint-rules.yaml \
+            --config tools/semgrep/sast-evidence-rules.yaml \
+            packages services tools language || true
+
+      - name: pip-audit
+        run: pip-audit -r requirements.lock --no-deps --disable-pip --format json -o reports/pip-audit.json || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: reports/
