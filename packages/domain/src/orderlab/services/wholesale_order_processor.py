@@ -47,7 +47,7 @@ class WholesaleOrderProcessor(object):
         }
 
     def process_all(self, orders: Iterable[OrderRecord]) -> List[Dict[str, float]]:
-        return [self.process(order) for order in orders]
+        return [self.process(order) for order in (orders or [])]
 
     def summary(self) -> Dict[str, float]:
         handled = self._accepted + self._rejected
