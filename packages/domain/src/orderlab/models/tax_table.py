@@ -41,6 +41,8 @@ class TaxTable(object):
 
     def apply(self, amount: float, channel: str, region: str) -> Tuple[float, float]:
         """Return (tax, total) for an amount."""
+        if amount < 0:
+            raise ValueError("amount must not be negative")
         rate = self.rate_for(channel, region)
         tax = round(amount * rate, 2)
         return tax, round(amount + tax, 2)

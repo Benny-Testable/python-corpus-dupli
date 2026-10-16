@@ -33,3 +33,8 @@ def test_effective_percent_is_the_rate_times_one_hundred():
 
 def test_auction_channel_has_a_rate():
     assert TaxTable().rate_for("auction", "US") == 0.05
+
+
+def test_negative_amounts_are_rejected():
+    with pytest.raises(ValueError):
+        TaxTable().apply(-1.0, "retail", "US")
