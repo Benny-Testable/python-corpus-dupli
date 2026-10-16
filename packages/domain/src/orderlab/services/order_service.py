@@ -38,6 +38,12 @@ class OrderService(object):
         self._processed += 1
         return total
 
+    def price_with_breakdown(self, order: OrderRecord) -> dict:
+        """Price an order and report how the total was reached."""
+        total = self.price(order)
+        rate = self.rules.combined(order.tier, order.units, order.promo_code)
+        return {"order_id": order.order_id, "gross": order.gross, "rate": rate, "total": total}
+
     def price_all(self, orders: Iterable[OrderRecord]) -> Tuple[List[float], List[PricingFailure]]:
         """Price a batch. Failures are collected, never raised."""
         priced = []  # type: List[float]

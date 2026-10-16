@@ -62,3 +62,10 @@ def test_malformed_line_is_rejected_at_construction():
             "tier": "gold", "lines": [{"sku": "S", "quantity": 0,
                                        "unit_price": 1.0}],
         })
+
+
+def test_breakdown_reports_the_rate_and_total(service, gold_order):
+    result = service.price_with_breakdown(gold_order)
+    assert result["order_id"] == gold_order.order_id
+    assert 0.0 <= result["rate"] <= 0.20
+    assert result["total"] > 0
