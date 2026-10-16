@@ -22,6 +22,7 @@ def test_promo_lookup_is_case_insensitive(rules):
     assert rules.promo_discount("SPRING10") == 0.10
     assert rules.promo_discount(None) == 0.0
     assert rules.promo_discount("NOPE") == 0.0
+    assert rules.promo_discount("welcome5") == 0.05
 
 
 def test_combined_is_capped_at_twenty_percent(rules):

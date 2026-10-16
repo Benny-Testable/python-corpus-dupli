@@ -8,7 +8,7 @@ from typing import Optional
 
 TIER_DISCOUNT = dict([("standard", 0.00), ("silver", 0.05), ("gold", 0.10)])
 
-PROMO_CODES = dict([("SPRING10", 0.10), ("VOLUME5", 0.05), ("LOYAL15", 0.15)])
+PROMO_CODES = dict([("SPRING10", 0.10), ("VOLUME5", 0.05), ("LOYAL15", 0.15), ("WELCOME5", 0.05)])
 
 
 class PricingRules(object):
