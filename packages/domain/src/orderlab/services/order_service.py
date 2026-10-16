@@ -67,3 +67,4 @@ class OrderService(object):
 
     def reset(self) -> None:
         self._processed = 0
+        self._revenue = 0.0

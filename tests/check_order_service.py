@@ -74,3 +74,10 @@ def test_breakdown_reports_the_rate_and_total(service, gold_order):
 def test_average_order_value_tracks_priced_orders(service, gold_order):
     total = service.price(gold_order)
     assert service.average_order_value == total
+
+
+def test_reset_clears_the_running_average(service, gold_order):
+    service.price(gold_order)
+    service.reset()
+    assert service.processed_count == 0
+    assert service.average_order_value == 0.0
