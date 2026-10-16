@@ -44,5 +44,9 @@ class TaxTable(object):
         tax = round(amount * rate, 2)
         return tax, round(amount + tax, 2)
 
+    def effective_percent(self, channel: str, region: str) -> float:
+        """The effective rate for a channel and region, as a percentage."""
+        return round(self.rate_for(channel, region) * 100, 4)
+
     def known_channels(self) -> Tuple[str, ...]:
         return tuple(sorted(self.channel_rates))
