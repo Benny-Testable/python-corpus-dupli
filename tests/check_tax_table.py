@@ -29,3 +29,7 @@ def test_unknown_channel_is_rejected():
 
 def test_effective_percent_is_the_rate_times_one_hundred():
     assert TaxTable().effective_percent("wholesale", "US") == 6.0
+
+
+def test_auction_channel_has_a_rate():
+    assert TaxTable().rate_for("auction", "US") == 0.05

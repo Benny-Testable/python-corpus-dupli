@@ -9,6 +9,7 @@ CHANNEL_RATES = dict([
     ("retail", 0.0825),
     ("wholesale", 0.0600),
     ("marketplace", 0.0725),
+    ("auction", 0.0500),
 ])
 
 REGION_MULTIPLIER = dict([
