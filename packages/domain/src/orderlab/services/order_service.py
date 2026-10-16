@@ -30,8 +30,7 @@ class OrderService(object):
         if problems:
             raise PricingFailure(order.order_id, problems)
         gross = order.gross
-        discountable = round(
-            sum(line.gross for line in order.lines if line.discountable), 2)
+        discountable = self._discountable_gross(order)
         rate = self.rules.combined(order.tier, order.units, order.promo_code)
         discount = round(discountable * rate, 2)
         net = round(gross - discount, 2)
@@ -39,6 +38,10 @@ class OrderService(object):
         self._processed += 1
         self._revenue = round(self._revenue + total, 2)
         return total
+
+    @staticmethod
+    def _discountable_gross(order: OrderRecord) -> float:
+        return round(sum(line.gross for line in order.lines if line.discountable), 2)
 
     def price_with_breakdown(self, order: OrderRecord) -> dict:
         """Price an order and report how the total was reached."""
