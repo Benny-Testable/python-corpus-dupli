@@ -8,6 +8,8 @@ from typing import Optional
 
 TIER_DISCOUNT = dict([("standard", 0.00), ("silver", 0.05), ("gold", 0.10)])
 
+VOLUME_STEPS = ((500, 0.08), (100, 0.05), (25, 0.02))
+
 PROMO_CODES = dict([("SPRING10", 0.10), ("VOLUME5", 0.05), ("LOYAL15", 0.15), ("WELCOME5", 0.05)])
 
 
@@ -23,12 +25,9 @@ class PricingRules(object):
         return TIER_DISCOUNT.get(tier, 0.0)
 
     def volume_bonus(self, units: int) -> float:
-        if units >= 500:
-            return 0.08
-        if units >= 100:
-            return 0.05
-        if units >= 25:
-            return 0.02
+        for threshold, bonus in VOLUME_STEPS:
+            if units >= threshold:
+                return bonus
         return 0.0
 
     def volume_tier(self, units: int) -> str:
