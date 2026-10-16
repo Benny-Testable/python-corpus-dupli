@@ -60,6 +60,12 @@ class PricingRules(object):
         raw += self.promo_discount(promo_code)
         return raw > self.max_combined
 
+    def cap_headroom(self, tier: str, units: int, promo_code: Optional[str] = None) -> float:
+        """How much further the combined rate could grow before it reaches the cap."""
+        raw = self.tier_discount(tier) + self.volume_bonus(units)
+        raw += self.promo_discount(promo_code)
+        return round(max(self.max_combined - raw, 0.0), 4)
+
     def describe(self, tier: str, units: int, promo_code: Optional[str] = None) -> str:
         parts = ["tier={0:.2%}".format(self.tier_discount(tier)),
                  "volume={0:.2%}".format(self.volume_bonus(units))]

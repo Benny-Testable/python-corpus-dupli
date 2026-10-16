@@ -53,3 +53,8 @@ def test_volume_tier_names(rules, units, expected):
 
 def test_promo_codes_ignore_surrounding_whitespace(rules):
     assert rules.promo_discount("  loyal15 ") == 0.15
+
+
+def test_cap_headroom_shrinks_to_zero_at_the_cap(rules):
+    assert rules.cap_headroom("standard", 0) == 0.20
+    assert rules.cap_headroom("gold", 5000, "LOYAL15") == 0.0
