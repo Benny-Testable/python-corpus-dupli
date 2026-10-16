@@ -42,3 +42,10 @@ def test_is_capped_flags_discounts_over_the_cap(rules):
     assert rules.is_capped("gold", 5000, "LOYAL15") is True
     assert rules.is_capped("standard", 0) is False
     assert rules.is_capped("gold", 100) is False
+
+
+@pytest.mark.parametrize("units,expected", [
+    (0, "none"), (24, "none"), (25, "bronze"), (100, "silver"), (500, "gold"),
+])
+def test_volume_tier_names(rules, units, expected):
+    assert rules.volume_tier(units) == expected

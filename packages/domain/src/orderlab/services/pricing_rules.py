@@ -31,6 +31,16 @@ class PricingRules(object):
             return 0.02
         return 0.0
 
+    def volume_tier(self, units: int) -> str:
+        """Name of the volume band an order falls in."""
+        if units >= 500:
+            return "gold"
+        if units >= 100:
+            return "silver"
+        if units >= 25:
+            return "bronze"
+        return "none"
+
     def promo_discount(self, promo_code: Optional[str]) -> float:
         if not promo_code:
             return 0.0
