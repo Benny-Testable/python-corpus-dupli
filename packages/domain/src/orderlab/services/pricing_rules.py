@@ -44,7 +44,7 @@ class PricingRules(object):
     def promo_discount(self, promo_code: Optional[str]) -> float:
         if not promo_code:
             return 0.0
-        return PROMO_CODES.get(promo_code.upper(), 0.0)
+        return PROMO_CODES.get(promo_code.strip().upper(), 0.0)
 
     def combined(self, tier: str, units: int, promo_code: Optional[str] = None) -> float:
         combined = self.tier_discount(tier) + self.volume_bonus(units)

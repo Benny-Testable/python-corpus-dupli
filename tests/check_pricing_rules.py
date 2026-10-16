@@ -49,3 +49,7 @@ def test_is_capped_flags_discounts_over_the_cap(rules):
 ])
 def test_volume_tier_names(rules, units, expected):
     assert rules.volume_tier(units) == expected
+
+
+def test_promo_codes_ignore_surrounding_whitespace(rules):
+    assert rules.promo_discount("  loyal15 ") == 0.15
