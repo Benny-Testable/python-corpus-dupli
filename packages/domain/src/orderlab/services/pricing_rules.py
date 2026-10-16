@@ -14,7 +14,11 @@ PROMO_CODES = dict([("SPRING10", 0.10), ("VOLUME5", 0.05), ("LOYAL15", 0.15), ("
 
 
 class PricingRules(object):
-    """Computes the combined discount rate for an order."""
+    """Computes the combined discount rate for an order.
+
+    The tier, volume and promo components are additive and the sum is capped
+    at ``max_combined``.
+    """
 
     MAX_COMBINED = 0.20
 
