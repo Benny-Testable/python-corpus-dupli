@@ -11,7 +11,8 @@ def test_tier_discounts(rules):
 
 @pytest.mark.parametrize("units,expected", [
     (0, 0.0), (24, 0.0), (25, 0.02), (99, 0.02),
-    (100, 0.05), (499, 0.05), (500, 0.08), (5000, 0.08),
+    (100, 0.05), (499, 0.05), (500, 0.08), (999, 0.08),
+    (1000, 0.10), (5000, 0.10),
 ])
 def test_volume_bonus_boundaries(rules, units, expected):
     assert rules.volume_bonus(units) == expected

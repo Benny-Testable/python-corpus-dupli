@@ -8,7 +8,7 @@ from typing import Optional
 
 TIER_DISCOUNT = dict([("standard", 0.00), ("silver", 0.05), ("gold", 0.10)])
 
-VOLUME_STEPS = ((500, 0.08), (100, 0.05), (25, 0.02))
+VOLUME_STEPS = ((1000, 0.10), (500, 0.08), (100, 0.05), (25, 0.02))
 
 PROMO_CODES = dict([("SPRING10", 0.10), ("VOLUME5", 0.05), ("LOYAL15", 0.15), ("WELCOME5", 0.05)])
 
