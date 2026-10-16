@@ -23,6 +23,7 @@ class OrderService(object):
         self.rules = rules or PricingRules()
         self.taxes = taxes or TaxTable()
         self._processed = 0
+        self._revenue = 0.0
 
     def price(self, order: OrderRecord) -> float:
         problems = order.validate()
@@ -36,6 +37,7 @@ class OrderService(object):
         net = round(gross - discount, 2)
         _tax, total = self.taxes.apply(net, order.channel, order.region)
         self._processed += 1
+        self._revenue = round(self._revenue + total, 2)
         return total
 
     def price_with_breakdown(self, order: OrderRecord) -> dict:
@@ -58,6 +60,10 @@ class OrderService(object):
     @property
     def processed_count(self) -> int:
         return self._processed
+
+    @property
+    def average_order_value(self) -> float:
+        return round(self._revenue / self._processed, 2) if self._processed else 0.0
 
     def reset(self) -> None:
         self._processed = 0

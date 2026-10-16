@@ -69,3 +69,8 @@ def test_breakdown_reports_the_rate_and_total(service, gold_order):
     assert result["order_id"] == gold_order.order_id
     assert 0.0 <= result["rate"] <= 0.20
     assert result["total"] > 0
+
+
+def test_average_order_value_tracks_priced_orders(service, gold_order):
+    total = service.price(gold_order)
+    assert service.average_order_value == total
