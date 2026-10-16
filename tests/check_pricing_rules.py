@@ -65,3 +65,10 @@ def test_cap_headroom_shrinks_to_zero_at_the_cap(rules):
 def test_combined_respects_a_custom_cap(cap, expected):
     from orderlab.services.pricing_rules import PricingRules
     assert PricingRules(max_combined=cap).combined("gold", 5000, "LOYAL15") == expected
+
+
+def test_a_discount_exactly_at_the_cap_is_not_capped():
+    from orderlab.services.pricing_rules import PricingRules
+    rules = PricingRules(max_combined=0.10)
+    assert rules.is_capped("gold", 0) is False
+    assert rules.combined("gold", 0) == 0.10
