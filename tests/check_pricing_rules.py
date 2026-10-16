@@ -59,3 +59,9 @@ def test_promo_codes_ignore_surrounding_whitespace(rules):
 def test_cap_headroom_shrinks_to_zero_at_the_cap(rules):
     assert rules.cap_headroom("standard", 0) == 0.20
     assert rules.cap_headroom("gold", 5000, "LOYAL15") == 0.0
+
+
+@pytest.mark.parametrize("cap,expected", [(0.05, 0.05), (0.50, 0.35)])
+def test_combined_respects_a_custom_cap(cap, expected):
+    from orderlab.services.pricing_rules import PricingRules
+    assert PricingRules(max_combined=cap).combined("gold", 5000, "LOYAL15") == expected
