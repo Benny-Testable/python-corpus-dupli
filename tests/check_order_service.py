@@ -88,3 +88,7 @@ def test_failed_orders_do_not_count_as_processed(service):
     with pytest.raises(PricingFailure):
         service.price(bad)
     assert service.processed_count == 0
+
+
+def test_breakdown_flags_a_capped_discount(service, gold_order):
+    assert isinstance(service.price_with_breakdown(gold_order)["capped"], bool)

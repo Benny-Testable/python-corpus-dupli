@@ -49,21 +49,22 @@ class PricingRules(object):
             return 0.0
         return PROMO_CODES.get(promo_code.strip().upper(), 0.0)
 
+    def _raw_rate(self, tier: str, units: int, promo_code: Optional[str] = None) -> float:
+        raw = self.tier_discount(tier) + self.volume_bonus(units)
+        return raw + self.promo_discount(promo_code)
+
     def combined(self, tier: str, units: int, promo_code: Optional[str] = None) -> float:
-        combined = self.tier_discount(tier) + self.volume_bonus(units)
-        combined += self.promo_discount(promo_code)
+        combined = self._raw_rate(tier, units, promo_code)
         return round(combined if combined <= self.max_combined else self.max_combined, 4)
 
     def is_capped(self, tier: str, units: int, promo_code: Optional[str] = None) -> bool:
         """True when the uncapped discount would exceed the combined cap."""
-        raw = self.tier_discount(tier) + self.volume_bonus(units)
-        raw += self.promo_discount(promo_code)
+        raw = self._raw_rate(tier, units, promo_code)
         return raw > self.max_combined
 
     def cap_headroom(self, tier: str, units: int, promo_code: Optional[str] = None) -> float:
         """How much further the combined rate could grow before it reaches the cap."""
-        raw = self.tier_discount(tier) + self.volume_bonus(units)
-        raw += self.promo_discount(promo_code)
+        raw = self._raw_rate(tier, units, promo_code)
         return round(max(self.max_combined - raw, 0.0), 4)
 
     def describe(self, tier: str, units: int, promo_code: Optional[str] = None) -> str:

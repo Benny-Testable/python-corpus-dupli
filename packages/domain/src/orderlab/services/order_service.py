@@ -44,7 +44,8 @@ class OrderService(object):
         """Price an order and report how the total was reached."""
         total = self.price(order)
         rate = self.rules.combined(order.tier, order.units, order.promo_code)
-        return {"order_id": order.order_id, "gross": order.gross, "rate": rate, "total": total}
+        return {"order_id": order.order_id, "gross": order.gross, "rate": rate, "total": total,
+                "capped": self.rules.is_capped(order.tier, order.units, order.promo_code)}
 
     def price_all(self, orders: Iterable[OrderRecord]) -> Tuple[List[float], List[PricingFailure]]:
         """Price a batch. Failures are collected, never raised."""
