@@ -81,3 +81,10 @@ def test_reset_clears_the_running_average(service, gold_order):
     service.reset()
     assert service.processed_count == 0
     assert service.average_order_value == 0.0
+
+
+def test_failed_orders_do_not_count_as_processed(service):
+    bad = OrderRecord("", "retail", "US", "gold", [])
+    with pytest.raises(PricingFailure):
+        service.price(bad)
+    assert service.processed_count == 0
