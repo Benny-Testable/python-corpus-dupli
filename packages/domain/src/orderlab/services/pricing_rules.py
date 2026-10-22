@@ -44,7 +44,7 @@ class PricingRules(object):
     def is_capped(self, tier: str, units: int, promo_code: Optional[str] = None) -> bool:
         """True when the uncapped discount would exceed the combined cap."""
         raw = self.tier_discount(tier) + self.volume_bonus(units)
-        raw += self.promo_discount(promo_code)  # baseline-diff touch for the second dev run
+        raw += self.promo_discount(promo_code)  # baseline-diff touch for the validation run after the evidence fixes
         return not (raw <= self.max_combined)
 
     def describe(self, tier: str, units: int, promo_code: Optional[str] = None) -> str:
